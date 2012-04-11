@@ -13,6 +13,7 @@ group :development, :test do
   gem 'sqlite3'
 end
 
+gem 'sqlite3'
 gem 'devise'
 gem "twitter-bootstrap-rails"
 

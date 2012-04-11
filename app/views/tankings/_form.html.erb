@@ -1,0 +1,58 @@
+<%= form_for(@tanking, :html => {:class => "form-horizontal"}) do |f| %>
+	<fieldset>
+	<legend></legend>
+
+	<div class="control-group">
+		<%= f.label :car, :class => "control-label" %>
+		<div class="controls"><%= f.collection_select :car_id, Car.where(:user_id => current_user.id), :id, :name_car, {:include_blank => 'Select One'} %></div>
+	</div>
+
+	<div class="control-group">
+		<%= f.label :station, :class => "control-label" %>
+		<div class="controls"><%= f.collection_select :station_id, Station.where(:user_id => current_user.id), :id, :name, {:include_blank => '-New Station-'} %></div>
+	</div>
+
+	<div class="control-group">
+		<div class="control-label"><label for="station_name">¿New Station?</label></div>
+		<div class="controls"><input class="input-xlarge" id="station_name" name="station_name"type="text"></div>
+	</div>
+
+	<div class="control-group">
+		<%= f.label :money, :class => "control-label" %>
+		<div class="controls"><%= f.text_field :money, :class => "input-xlarge" %></div>
+	</div>
+
+	<div class="control-group">
+		<%= f.label :gal, :class => "control-label" %>
+		<div class="controls"><%= f.text_field :gal, :class => "input-xlarge" %></div>
+	</div>
+
+	<div class="control-group">
+		<%= f.label :km, :class => "control-label" %>
+		<div class="controls"><%= f.text_field :km, :class => "input-xlarge" %></div>
+	</div>
+
+	<div class="control-group">
+		<%= f.label :date, :class => "control-label" %>
+		<div class="controls"><%= f.date_select :date %></div>
+	</div>
+
+	<% if @tanking.errors.any? %>
+		<div class="alert alert-block" id="alert">
+			<a class="close" data-dismiss="alert">x</a>
+			<h4 class="alert-heading">Warning!</h4>
+			Please check the following <%= pluralize(@tanking.errors.count, "message") %>:
+			<ul>
+				<% @tanking.errors.full_messages.each do |msg| %>
+					<li><%= msg %></li>
+				<% end %>
+			</ul>
+		</div>
+	<% end %>
+
+	<div class="form-actions">
+		<%= f.submit :class => "btn btn-primary" %>
+		<%= link_to "Cancel", tankings_path, :class => "btn" %>
+	</div>
+	</fieldset>
+<% end %>

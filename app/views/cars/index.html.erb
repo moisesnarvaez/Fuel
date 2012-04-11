@@ -1,0 +1,29 @@
+<h2>My cars</h2>
+
+<% if(@cars.count > 0) %>
+	<table class="table table-bordered">
+		<tr>
+			<th>Show</th>
+			<th>Edit</th>
+			<th>Mark</th>
+			<th>Model</th>
+			<th>Year</th>
+			<th>Color</th>
+		</tr>
+		<% @cars.each do |car| %>
+		<tr>
+			<td><%= link_to "View", car, :class => "btn btn-info" %></td>
+			<td><%= link_to "Edit", edit_car_path(car), :class => "btn btn-warning" %></td>
+			<td><%= car.mark %></td>
+			<td><%= car.model %></td>
+			<td><%= car.year %></td>
+			<td><%= car.color %></td>
+		</tr>
+		<% end %>
+	</table>
+<% else %>
+	<div class="alert alert-info">
+		There is no cars registed yet.
+	</div>
+<% end %>
+<%= link_to "New Car", new_car_path, :class => "btn" %>

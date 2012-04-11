@@ -1,0 +1,33 @@
+<h2>My Tankings</h2>
+
+<% if(@tankings.count > 0) %>
+	<table class="table table-bordered">
+		<tr>
+			<th>Edit</th>
+			<th>Delete</th>
+			<th>Date</th>
+			<th>Car</th>
+			<th>Station</th>
+			<th>Money</th>
+			<th>Gals</th>
+			<th>Km</th>
+		</tr>
+		<% @tankings.each do |tanking| %>
+		<tr>
+			<td><%= link_to "Edit", edit_tanking_path(tanking.id), :class => "btn btn-warning" %></td>
+			<td><%= link_to "Delete", tanking, :method => "delete", :confirm => "¿Are you sure?", :class => "btn btn-danger" %></td>
+			<td><%= tanking.date %></td>
+			<td><%= "#{tanking.mark} - #{tanking.model} (#{tanking.year})" %></td>
+			<td><%= tanking.name %></td>
+			<td>$ <%= tanking.money %></td>
+			<td><%= tanking.gal %></td>
+			<td><%= tanking.km %></td>
+		</tr>
+		<% end %>
+	</table>
+<% else %>
+	<div class="alert alert-info">
+		There is no tankings registed yet.
+	</div>
+<% end %>
+<%= link_to "New Tanking", new_tanking_path, :class => "btn" %>

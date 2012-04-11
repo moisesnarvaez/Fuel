@@ -1,0 +1,156 @@
+<%
+  title = {1 => "Gas consuption by car", 2 => "The gas station whit best performance", 3 => "The cheapest station"}
+%>
+<h1>Stadistics - <%= title[@op] %></h1>
+<br /><a href="/stadistics">Gas consuption by car</a> | <a href="/stadistics?op=2">The gas station whit best performance</a> | <a href="/stadistics?op=3">The cheapest station</a><br />
+<div id="chart_div" style="width: 800px; height: 500px;"></div>
+<%
+  case @op
+    # Gas with best performance
+    when 2  %>
+      <script type="text/javascript">
+        function drawChart() {
+          // Create and populate the data table.
+        var data = new google.visualization.DataTable();
+        var raw_data = [['Station'<%
+          @all_records.each do |data|
+            performance = data.total_km.to_f / data.total_gas.to_f  %><%=
+              ","+performance.to_s+"" %><% 
+            sw = true
+          end %>]];
+        
+        var years = [<% sw = false %><% @all_records.each do |data|
+              name_station = Station.find(data.station_id).name  %><%= 
+              if(sw)
+                p ","
+              end 
+              %><%=
+              "'"+name_station+"'" %><% 
+            sw = true
+          end %>];
+                        
+        data.addColumn('string', 'Year');
+        for (var i = 0; i  < raw_data.length; ++i) {
+          data.addColumn('number', raw_data[i][0]);    
+        }
+        
+        data.addRows(years.length);
+
+        for (var j = 0; j < years.length; ++j) {    
+          data.setValue(j, 0, years[j].toString());    
+        }
+        for (var i = 0; i  < raw_data.length; ++i) {
+          for (var j = 1; j  < raw_data[i].length; ++j) {
+            data.setValue(j-1, i+1, raw_data[i][j]);    
+          }
+        }
+        
+        // Create and draw the visualization.
+        new google.visualization.BarChart(document.getElementById('chart_div')).
+            draw(data,{
+                  width:600, height:400,
+                  vAxis: {title: "Station"},
+                  hAxis: {title: "Km / Gallon"}}
+            );
+        }
+        google.setOnLoadCallback(drawChart);
+      </script>
+<%
+    # The cheapest Station
+    when 3 %>
+    <script type="text/javascript">
+        function drawChart() {
+          // Create and populate the data table.
+        var data = new google.visualization.DataTable();
+        var raw_data = [['Station'<%
+          @all_records.each do |data|
+            val_per_gal = data.total_money.to_f / data.total_gas.to_f  %><%=
+              ","+val_per_gal.to_s+"" %><% 
+            sw = true
+          end %>]];
+        
+        var years = [<% sw = false %><% @all_records.each do |data|
+              name_station = Station.find(data.station_id).name  %><%= 
+              if(sw)
+                p ","
+              end %><%=
+              "'"+name_station+"'" %><% 
+            sw = true
+          end %>];
+                        
+        data.addColumn('string', 'Year');
+        for (var i = 0; i  < raw_data.length; ++i) {
+          data.addColumn('number', raw_data[i][0]);    
+        }
+        
+        data.addRows(years.length);
+
+        for (var j = 0; j < years.length; ++j) {    
+          data.setValue(j, 0, years[j].toString());    
+        }
+        for (var i = 0; i  < raw_data.length; ++i) {
+          for (var j = 1; j  < raw_data[i].length; ++j) {
+            data.setValue(j-1, i+1, raw_data[i][j]);    
+          }
+        }
+        
+        // Create and draw the visualization.
+        new google.visualization.BarChart(document.getElementById('chart_div')).
+            draw(data,{
+                  width:600, height:400,
+                  vAxis: {title: "Station"},
+                  hAxis: {title: "$US / Gallon"}}
+            );
+        }
+        google.setOnLoadCallback(drawChart);
+      </script>
+<%  
+    # Gas consuption by car
+    else %>
+      <script type="text/javascript">
+        function drawChart() {
+          var data = new google.visualization.DataTable();
+          data.addColumn('string', 'Car');
+          <% @cars.each do |car| %>
+            data.addColumn('number', '<%= car.mark+" - "+car.model+" ("+car.year+")" %>');
+          <% end %>
+          data.addRows([<% 
+            sw = false
+            @data.each do |day| %><%= 
+              if(sw)
+                p ","
+              end
+              %>
+              ['<%= day[1][:date] %>', <%
+                  sw2 = false
+                  @cars.each do |car| %><%= if(sw2) then p ", " end %><%
+                    if(day[1][:cars].has_key?(car.id))
+                      gal = day[1][:cars][car.id][:gal] %><%= 
+                      p gal %><% 
+                    else %><%= 
+                      p "null" %><%
+                    end
+                    sw2 = true
+                  end
+                 %>]<% 
+                sw = true
+              end %>
+          ]);
+
+          var options = {
+            vAxis: {title: "Gallons"},
+            hAxis: {title: "Tanking"},
+            seriesType: "bars",
+            series: {5: {type: "line"}}
+          };
+
+          var chart = new google.visualization.ComboChart(document.getElementById('chart_div'));
+          chart.draw(data, options);
+        }
+        google.setOnLoadCallback(drawChart);
+      </script>
+<% end %>
+<script type="text/javascript">
+  google.load("visualization", "1", {packages:["corechart"]});
+  google.setOnLoadCallback(drawChart);
+</script>

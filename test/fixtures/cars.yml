@@ -1,0 +1,17 @@
+# Read about fixtures at http://api.rubyonrails.org/classes/ActiveRecord/Fixtures.html
+
+one:
+  name: MyString
+  mark: MyString
+  model: MyString
+  year: MyString
+  color: MyString
+  user_id: 
+
+two:
+  name: MyString
+  mark: MyString
+  model: MyString
+  year: MyString
+  color: MyString
+  user_id: 

@@ -1,0 +1,19 @@
+# Read about fixtures at http://api.rubyonrails.org/classes/ActiveRecord/Fixtures.html
+
+one:
+  user_id: 1
+  car_id: 1
+  station_id: 1
+  money: MyString
+  gal: MyString
+  km: MyString
+  date: 2012-04-10
+
+two:
+  user_id: 1
+  car_id: 1
+  station_id: 1
+  money: MyString
+  gal: MyString
+  km: MyString
+  date: 2012-04-10

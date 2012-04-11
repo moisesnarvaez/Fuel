@@ -3,6 +3,8 @@
   <head>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <!-- Google chart -->
+    <script type="text/javascript" src="https://www.google.com/jsapi"></script>
     <title>Fuel Tracker</title>
     <%= csrf_meta_tags %>
 
@@ -35,6 +37,9 @@
           <div class="container nav-collapse">
             <ul class="nav">
                 <% if(user_signed_in?) %>
+                	<li><%= link_to "My Cars", "/cars"  %></li>
+                	<li><%= link_to "My Tanking", "/tankings"  %></li>
+                  <li><%= link_to "Stadistics", "/stadistics"  %></li>
                 	<li><%= link_to "My Profile", "/users/edit"  %></li>
                 	<li><%= link_to "Logout", "/users/sign_out", :method => :delete  %></li>
                 <% else %>
@@ -80,7 +85,7 @@
         </div><!--/row-->
       </div><!--/content-->
 
-      <footer class="footer">
+      <footer class="footer" style="margin-top:20px">
         <p>&copy; Koombea 2012</p>
       </footer>
 

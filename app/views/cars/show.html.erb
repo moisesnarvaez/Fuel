@@ -1,0 +1,61 @@
+<h2>Car: <%= @car.mark+" - "+@car.model %></h2>
+
+<table border="0" cellpadding="8">
+	<tr>
+		<td>Mark</td>
+		<td>:</td>
+		<td><%= @car.mark %></td>
+	</tr>
+	<tr>
+		<td>Model</td>
+		<td>:</td>
+		<td><%= @car.model %></td>
+	</tr>
+	<tr>
+		<td>Year</td>
+		<td>:</td>
+		<td><%= @car.year %></td>
+	</tr>
+	<tr>
+		<td>Color</td>
+		<td>:</td>
+		<td><%= @car.color %></td>
+	</tr>
+</table>
+<%= link_to "Edit", edit_car_path(@car), :class => "btn btn-warning" %>
+<%= link_to "Back", cars_path, :class => "btn" %>
+
+<script type="text/javascript">
+	google.load("visualization", "1", {packages:["corechart"]});
+	google.setOnLoadCallback(drawChart);
+	function drawChart() {
+		var data = new google.visualization.DataTable();
+		data.addColumn('string', 'Year');
+		data.addColumn('number', '<%= @car.mark+" - "+@car.model+" ("+@car.year+")" %>');
+		data.addRows([<% 
+			sw = false
+			@data.each do |day| %><%= 
+				if(sw)
+					p ","
+				end
+				%>
+				['<%= day[1][:date] %>', <%
+							gal = day[1][:cars][@car.id][:gal] %><%= 
+							p gal %><%
+		  		 %>]<% 
+		  		sw = true
+		  	end %>
+		]);
+
+		var options = {
+		  interpolateNulls: true,
+		  vAxis: { title: "Gallons" },
+		  hAxis: { title: "Tankings" }
+		};
+
+		var chart = new google.visualization.LineChart(document.getElementById('chart_div'));
+		chart.draw(data, options);
+	}
+</script>
+<br><br><h3>Gas consuption</h3>
+<div id="chart_div" style="width: 800px; height: 500px;"></div>

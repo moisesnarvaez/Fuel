@@ -11,7 +11,36 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20120410141313) do
+ActiveRecord::Schema.define(:version => 20120411170020) do
+
+  create_table "cars", :force => true do |t|
+    t.string   "mark"
+    t.string   "model"
+    t.string   "year"
+    t.string   "color"
+    t.integer  "user_id"
+    t.datetime "created_at", :null => false
+    t.datetime "updated_at", :null => false
+  end
+
+  create_table "stations", :force => true do |t|
+    t.string   "name"
+    t.integer  "user_id"
+    t.datetime "created_at", :null => false
+    t.datetime "updated_at", :null => false
+  end
+
+  create_table "tankings", :force => true do |t|
+    t.integer  "user_id"
+    t.integer  "car_id"
+    t.integer  "station_id"
+    t.string   "money"
+    t.string   "gal"
+    t.string   "km"
+    t.date     "date"
+    t.datetime "created_at", :null => false
+    t.datetime "updated_at", :null => false
+  end
 
   create_table "users", :force => true do |t|
     t.string   "email",                  :default => "", :null => false

@@ -3,6 +3,11 @@ class CarsController < ApplicationController
 
 	def index
 		@cars = Car.where("user_id= ?", current_user.id)
+
+		respond_to do |format|
+	      format.html # index.html.erb
+	      format.json { render json: @cars }
+	    end
 	end
 
 	def show
@@ -37,10 +42,10 @@ class CarsController < ApplicationController
 	    respond_to do |format|
 	      if @car.save
 	        format.html { redirect_to(cars_url, :notice => 'Car was successfully created.') }
-	        format.xml  { render :xml => @car, :status => :created, :location => @car }
+	        format.json  { render :json => @car, :status => :created, :location => @car }
 	      else
 	        format.html { render :action => "new" }
-	        format.xml  { render :xml => @car.errors, :status => :unprocessable_entity }
+	        format.json  { render :json => @car.errors, :status => :unprocessable_entity }
 	      end
 	    end
 	end
@@ -53,7 +58,7 @@ class CarsController < ApplicationController
 	        format.xml  { head :ok }
 	      else
 	        format.html { render :action => "edit" }
-	        format.xml  { render :xml => @car.errors, :status => :unprocessable_entity }
+	        format.json  { render :json => @car.errors, :status => :unprocessable_entity }
 	      end
 		end
 	end

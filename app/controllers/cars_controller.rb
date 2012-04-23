@@ -27,10 +27,6 @@ class CarsController < ApplicationController
 		end
 	end
 
-	def new
-		@car = Car.new
-	end
-
 	def edit
 		@car = Car.find(params[:id])
 	end
@@ -55,11 +51,22 @@ class CarsController < ApplicationController
 		respond_to do |format|
 	      if @car.update_attributes(params[:car])
 	        format.html { redirect_to(cars_url, :notice => 'Car was successfully updated.') }
-	        format.xml  { head :ok }
+	        format.json  { head :no_content }
 	      else
 	        format.html { render :action => "edit" }
 	        format.json  { render :json => @car.errors, :status => :unprocessable_entity }
 	      end
 		end
 	end
+
+	# TODO: we have to delete all tankings of this car
+	def destroy
+		@car = Car.find(params[:id])
+		@car.destroy
+
+		respond_to do |format|
+			format.html { redirect_to cars_url }
+			format.json { head :no_content }
+	end
+	end	
 end

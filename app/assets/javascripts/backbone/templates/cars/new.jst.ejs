@@ -1,0 +1,46 @@
+<form id="new-car" name="car" class="form-horizontal">
+  <% if (typeof id != "undefined"){ %>	
+    <legend>Editing <%= model %> (<%= year %>)</legend>
+  <% }else{ %>
+    <legend>New Car</legend>
+  <% } %>
+  <div class="control-group">
+  	<label class="control-label" for="mark">Mark</label>
+  	<div class="controls">
+  		<input type="text" class="input-medium" id="mark" name="mark" value="<%= mark %>">
+  	</div>
+  </div>
+
+  <div class="control-group">
+  	<label class="control-label" for="model">Model</label>
+  	<div class="controls">
+  		<input type="text" class="input-medium" id="model" name="model" value="<%= model %>">
+  	</div>
+  </div>
+
+  <div class="control-group">
+  	<label class="control-label" for="year">Year</label>
+  	<div class="controls">
+  		<input type="text" class="input-medium" id="year" name="year" value="<%= year %>">
+  	</div>
+  </div>
+
+  <div class="control-group">
+  	<label class="control-label" for="color">Color</label>
+  	<div class="controls">
+  		<input type="text" class="input-medium" id="color" name="color" value="<%= color %>">
+  	</div>
+  </div>
+  <% if (typeof errors != "undefined"){ %>	
+  	<div class="alert">
+		  <a class="close" data-dismiss="alert">×</a>
+		  <h4 class="alert-heading">Warning!</h4>
+		  <%= errors %>
+		</div>
+  	
+  <% } %>
+  <div class="form-actions">
+    <input type="submit" value="<% if(typeof id != "undefined"){ %>Save<% }else{ %>Create Car<% } %>" class="btn btn-primary" />
+    <a href="/#cars" class="btn">Back</a>
+  </div>
+</form>

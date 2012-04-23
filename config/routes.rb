@@ -16,7 +16,9 @@ Fuel::Application.routes.draw do
 
   # Sample resource route (maps HTTP verbs to controller actions automatically):
   #   resources :products
-  resources :cars
+  scope "api" do
+    resources :cars
+  end
   resources :tankings
   
   match '/stadistics' => 'home#stadistics', :as => :stadistics

@@ -14,3 +14,20 @@
 body{
 	padding: 90px 0px 0px 0px;
 }
+footer{
+	margin-top:20px;
+	border-top: 1px solid #eee;
+	padding-top: 20px;
+}
+#car_detail .control-label{
+	width: 40px !important;
+}
+#car_detail .control-group{
+	width: 120px !important;	
+}
+#car_detail .controls{
+	margin-left: 60px !important;	
+}
+#car_detail .form-horizontal .form-actions{
+	padding-left: 60px !important;
+}

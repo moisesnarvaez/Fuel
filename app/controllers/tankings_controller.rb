@@ -21,25 +21,19 @@ class TankingsController < ApplicationController
 	end
 
 	def new_station
-		
-		if(params[:station_name].length > 0)
-			@station = Station.new(:name => params[:station_name], :user_id => current_user.id)
-			if @station.save
-				params[:tanking][:station_id] = @station.id
-			else
-				@tanking = Tanking.new(params[:tanking])
-        		@tanking.errors[:station_id] = ": Actually exist the station "+params[:station_name]+", please select it."
-				if(params[:id])
-		          render :action => "edit"
-		        else
-		          render :action => "new"
-		        end
-		    end	
+		if(params[:tanking][:name].length > 0)
+			@station = Station.find_or_create_by_name_and_user_id(params[:tanking][:name], current_user.id)
+			params[:tanking][:station_id] = @station.id
 		end
 	end
 
 	def index
-		@tankings = Tanking.select('"tankings"."id", name, mark, model, year, date, money, gal, km').joins(:car, :station).where(:user_id => current_user.id).order("date DESC")
+		@tankings = Tanking.select('"tankings"."id", station_id, car_id, name, mark, model, year, date, money, gal, km').joins(:car, :station).where("tankings.user_id = #{current_user.id} AND car_id = #{params[:car_id]}").order("date DESC")
+
+		respond_to do |format|
+	      format.html # index.html.erb
+	      format.json { render json: @tankings }
+	    end
 	end
 
 	def new
@@ -50,26 +44,32 @@ class TankingsController < ApplicationController
 	end
 
 	def update
+		params[:tanking].delete :name
+		params[:tanking].delete :mark
+		params[:tanking].delete :model
+		params[:tanking].delete :year
+		
 	    respond_to do |format|
 	      if @tanking.update_attributes(params[:tanking])
 	        format.html { redirect_to(tankings_url, :notice => 'Tanking was successfully updated.') }
-	        format.xml  { render :xml => @tanking, :status => :created, :location => @tanking }
+	        format.json  { render :json => @tanking, :status => :created, :location => @tanking }
 	      else
 	        format.html { render :action => "new" }
-	        format.xml  { render :xml => @tanking.errors, :status => :unprocessable_entity }
+	        format.json  { render :json => @tanking.errors, :status => :unprocessable_entity }
 	      end
 	    end
 	end
 
 	def create
+		params[:tanking].delete :name
 		@tanking = Tanking.new(params[:tanking])
 	    respond_to do |format|
 	      if @tanking.save
 	        format.html { redirect_to(tankings_url, :notice => 'Tanking was successfully created.') }
-	        format.xml  { render :xml => @tanking, :status => :created, :location => @tanking }
+	        format.json  { render :json => @tanking, :status => :created, :location => @tanking }
 	      else
 	        format.html { render :action => "new" }
-	        format.xml  { render :xml => @tanking.errors, :status => :unprocessable_entity }
+	        format.json  { render :json => @tanking.errors, :status => :unprocessable_entity }
 	      end
 	    end
 	end
@@ -79,7 +79,7 @@ class TankingsController < ApplicationController
 
 		respond_to do |format|
 			format.html { redirect_to(tankings_url, :notice => 'Tanking was successfully deleted.') }
-			format.xml  { head :ok }
+			format.json  { head :ok }
 		end
 	end
 end

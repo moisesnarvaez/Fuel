@@ -1,0 +1,67 @@
+<form id="new-tanking" name="tanking" class="form-horizontal">
+  <div class="modal-header">
+    <h2><% if (typeof id != "undefined"){ %>	
+      Edit
+    <% }else{ %>
+      New
+    <% } %>
+    Tanking</h2>
+  </div>
+  <div class="modal-body">
+    <input type="hidden" class="input-medium" id="car_id" name="car_id" value="<%= car_id %>">
+    
+    <div class="control-group">
+    	<label class="control-label" for="station_id">Station</label>
+    	<div class="controls">
+    		<select class="input-medium" id="station_id" name="station_id">
+            <option value="">-New Station-</option>
+        </select>
+    	</div>
+    </div>
+
+    <div class="control-group">
+      <label class="control-label" for="station_id">New Station here:</label>
+      <div class="controls">
+        <input type="text" class="input-medium" id="station_name" name="station_name">
+      </div>
+    </div>
+
+    <div class="control-group">
+    	<label class="control-label" for="money">Money</label>
+    	<div class="controls">
+    		<input type="text" class="input-medium" id="money" name="money" value="<%= money %>">
+    	</div>
+    </div>
+
+    <div class="control-group">
+    	<label class="control-label" for="gal">Gals</label>
+    	<div class="controls">
+    		<input type="text" class="input-medium" id="gal" name="gal" value="<%= gal %>">
+    	</div>
+    </div>
+
+    <div class="control-group">
+    	<label class="control-label" for="km">Km</label>
+    	<div class="controls">
+    		<input type="text" class="input-medium" id="km" name="km" value="<%= km %>">
+    	</div>
+    </div>
+
+    <div class="control-group">
+    	<label class="control-label" for="date">Date</label>
+    	<div class="controls">
+    		<input type="text" class="input-medium" id="date" name="date" value="<%= date %>">
+    	</div>
+    </div>  
+
+  	<div class="alert" style="display:none">
+		  <h4 class="alert-heading">Warning!</h4>
+      <div class="alert-body"></div>
+		</div>
+    	
+  <div class="form-actions">
+    <input type="submit" value="Save" class="btn btn-primary" />
+    <span class="btn" onclick="$('#modal').modal('hide')">Cancel</span>
+  </div>
+
+</form>

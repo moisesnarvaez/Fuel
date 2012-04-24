@@ -17,8 +17,8 @@ class Fuel.Views.Cars.CarView extends Backbone.View
       wait: true
       success: -> 
         $("#car_detail").html('')
-        alert "Car deleted"
-    }) if confirm '¿Are you sure?'
+        $("#car_tankings").html('')
+    }) if confirm '¿Are you sure car?'
 
     return false
 

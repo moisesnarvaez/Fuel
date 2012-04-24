@@ -1,3 +1,11 @@
 // Place all the styles related to the Tankings controller here.
 // They will automatically be included in application.css.
 // You can use Sass (SCSS) here: http://sass-lang.com/
+#tanking-chart{
+	margin-bottom: 10px;
+}
+#tankinks-container{
+	margin-top: 10px;
+	max-height: 280px;
+	overflow: auto;
+}

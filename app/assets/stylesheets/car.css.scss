@@ -1,6 +1,20 @@
 // Place all the styles related to the Car controller here.
 // They will automatically be included in application.css.
 // You can use Sass (SCSS) here: http://sass-lang.com/
-#car_detail{
-	padding-top: 34px;	
+
+#car_detail .control-label{
+	width: 40px !important;
+}
+#car_detail .control-group{
+	width: 120px !important;	
+}
+#car_detail .controls{
+	margin-left: 60px !important;	
+}
+#car_detail .form-horizontal .form-actions{
+	padding-left: 60px !important;
+}
+#cars-container{
+	max-height: 300px;
+	overflow: auto;
 }

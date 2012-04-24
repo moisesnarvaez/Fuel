@@ -14,6 +14,7 @@ class Fuel.Views.Cars.NewView extends Backbone.View
       @model = @options.model
     else
       @model = new @collection.model()  
+    
     @model.bind("change:errors", () =>
       this.render()
     )
@@ -31,7 +32,8 @@ class Fuel.Views.Cars.NewView extends Backbone.View
         wait: true
         success : (car) =>
           @model = car
-          window.location.hash = "#cars/#{@model.id}"
+          @view_detail = new Fuel.Views.Cars.ShowView(model: car)
+          Backbone.history.navigate("/#cars/"+@model.get('id'), true)
         error: @handleError
       )
     else
@@ -39,7 +41,8 @@ class Fuel.Views.Cars.NewView extends Backbone.View
         wait: true
         success: (car) =>
           @model = car
-          window.location.hash = "#cars/#{@model.id}"
+          @view_detail = new Fuel.Views.Cars.ShowView(model: car)
+          Backbone.history.navigate("/#cars/"+@model.get('id'), true)
         error: @handleError
       })
   

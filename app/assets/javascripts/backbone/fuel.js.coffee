@@ -20,7 +20,3 @@ window.Cars =
   Views: {}
   init: ->
   	new Fuel.Routers.CarsRouter()
-
-$(document).ready ->
-  Fuel.init()
-  Cars.init()

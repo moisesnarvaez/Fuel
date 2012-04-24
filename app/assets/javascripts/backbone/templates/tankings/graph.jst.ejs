@@ -1,0 +1,7 @@
+<% 
+
+	data = _.pluck(tankings, 'gal');
+	data = _.map(data, function(num){ return parseInt(num); }).reverse();
+	max = _.max(data)+2;
+%>
+<img id="tanking-chart" src="https://chart.googleapis.com/chart?cht=lc&chs=375x125&chd=t:<%= data %>&chxr=0,0,<%= max %>&chds=0,<%= max %>&chxt=y">

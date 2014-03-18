@@ -1,3 +1,5 @@
-== Application test
+== Application test 
 
 This is a test app and can be used like a base to new projects.
+
+By: Moises Narvaez
